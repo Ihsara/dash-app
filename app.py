@@ -29,6 +29,7 @@ data_wrapper = get_data(province_ref)
 
 
 app = dash.Dash()
+server = app.server
 
 app.layout = html.Div(children=[
     html.H1(children='Hello Dash'),
