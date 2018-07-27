@@ -10,9 +10,6 @@ server = app.server
 
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
 
-def foo():
-    pass
-
 
 app.layout = html.Div([
     html.H2('Hello World'),
