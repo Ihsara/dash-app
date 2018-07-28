@@ -7,13 +7,13 @@ import plotly.graph_objs as go
 
 import pandas as pd
 
-from app import app, server, layout
-from apps import app1, app2
+from app import app, server
+from apps import overview, by_subject, by_province, by_department, by_region, testing
 
 #page layout
 noPage = html.Div([  # 404
 
-    html.P(["404 Page not found"])
+    html.P(["404 Trang không tồn tại"])
 
     ], className="no-page")
 
@@ -38,13 +38,22 @@ for css in external_css:
 
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
+
 def display_page(pathname):
-    if pathname == '/apps/app1':
-        return app1.layout
-    elif pathname == '/apps/app2':
-        return app2.layout
-    elif pathname == '/':
-        return layout
+    if pathname == '/' or pathname == '/khai-quat':
+        return overview.layout
+    elif pathname == '/theo-mon':
+        return by_subject.layout
+    elif pathname == '/theo-tinh-thanh':
+        return by_province.layout
+    elif pathname == '/theo-ban-khoi':
+        return by_department.layout
+    elif pathname == '/theo-vung-mien':
+        return by_region.layout
+    elif pathname == '/thu-nghiem':
+        return testing.layout
+    elif pathname == '/full-view':
+        return overview.layout, by_subject.layout, by_province.layout, by_department.layout, by_region.layout, testing.layout
     else:
         return noPage
 
