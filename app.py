@@ -9,12 +9,25 @@ import plotly.graph_objs as go
 import pandas as pd
 from pathlib import Path
 
+'''
+    Declaration of a Dash-app. Always right after import.
+'''
+app = dash.Dash()
+server = app.server
+app.config.suppress_callback_exceptions = True
 
 
+#Add CSS custom files here
+app.css.append_css({
+    'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'
+})
+
+
+#CONSTANTS declaration
 __file__ = "dat/province_code.xlsx"
 BASE_DIR_DATA = "dat/{}.csv"
 
-
+#Other functions
 def get_data(ref_province):
     data_wrapper = {}
     for province_id in range(64):
@@ -28,22 +41,20 @@ province_ref = pd.read_excel(__file__)
 data_wrapper = get_data(province_ref)
 
 
-app = dash.Dash()
-server = app.server
 
 app.layout = html.Div(children=[
-    html.H1(children='Hello Dash'),
+    html.H1(children='Trang đồ họa đồ thị kết quả thi THPT 2018'),
 
     html.P(children='''
-        This is the test paragraph
+        Chào mừng bạn đã đến với trang chủ của trang
     '''),
 
     html.Div(children='''
-        Dash: A web application framework for Python.
+        Trang này dùng dữ liệu có sẵn từ kết quả thi tốt nghiệp THPT 2018 để vẽ vài biểu đồ
     '''),
 
     dcc.Graph(
-        id='example-graph',
+        id='histogram-graph-hcmc-physics',
         figure={
             'data': [
                         go.Histogram(x=data_wrapper["TP.HCM"]['LÝ'],  histnorm='probability')
@@ -52,8 +63,13 @@ app.layout = html.Div(children=[
                 'title': 'Điểm thi Toán THPT của TP.HCM 2018'
             }
         }
-    )
+    ),
+
+    dcc.Link('Go to App 1', href='apps/app1'),
+    html.Br(),
+    dcc.Link('Go to App 2', href='/apps/app2')
 ])
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)

@@ -11,7 +11,7 @@ server = app.server
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
 
 
-app.layout = html.Div([
+""" app.layout = html.Div([
     html.H2('Hello World'),
     dcc.Dropdown(
         id='dropdown',
@@ -26,5 +26,7 @@ app.layout = html.Div([
 def display_value(value):
     return 'You have selected "{}"'.format(value)
 
+
 if __name__ == '__main__':
     app.run_server(debug=True)
+ """
