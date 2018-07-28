@@ -15,7 +15,7 @@ layout = html.Div([
         ]
     ),
     html.Div(id='app-1-display-value'),
-    dcc.Link('Go to Main page\n', href='./app'),
+    dcc.Link('Go to Main page\n', href='../'),
     html.Br(),
     dcc.Link('Go to App 2\n', href='/apps/app2')
 ])
