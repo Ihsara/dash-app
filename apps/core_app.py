@@ -7,13 +7,10 @@ import plotly.graph_objs as go
 
 import pandas as pd
 
-from app import app
-
-page_id = 'Khái quát'
-
 #CONSTANTS declaration
-__file__ = "dat/province_code.xlsx"
-BASE_DIR_DATA = "dat/{}.csv"
+__file__ = "./dat/province_code.xlsx"
+PAGES_HREF = {'Khái quát': '/khai-quat', 'Theo môn': '/theo-mon', 'Theo tỉnh/thành': '/theo-tinh-thanh', 'Theo ban/khối': '/theo-ban-khoi', 'Theo khu vực/vùng miền': '/theo-vung-mien', 'Nơi thử nghiệm': '/thu-nghiem' }
+BASE_DIR_DATA = "./dat/{}.csv"
 
 #Other functions
 def get_data(ref_province):
@@ -25,6 +22,11 @@ def get_data(ref_province):
             pass
     return data_wrapper
 
+"""
+    Core variable for data in this app. This is the container of examination result of 62/63 provinces in Vietnam.
+    province_ref : contains (id, geophraphical_name) E.g: (1, "TP.HCM")
+    data_wraper  : dictionary of { id: DataFrame} which DataFrame contains examination result
+"""
 province_ref = pd.read_excel(__file__)
 data_wrapper = get_data(province_ref)
 
@@ -38,7 +40,6 @@ def make_dash_table(df):
             html_row.append(html.Td([row[i]]))
         table.append(html.Tr(html_row))
     return table
-
 
 def print_button():
     printButton = html.A(['In ra PDF'],className="button no-print print",style={'position': "absolute", 'top': '-40', 'right': '0'})
@@ -59,7 +60,6 @@ def get_logo():
     ], className="row gs-header")
     return logo
 
-
 def get_header():
     header = html.Div([
 
@@ -71,75 +71,12 @@ def get_header():
     ], className="row gs-header gs-text-header")
     return header
 
-
-def get_menu():
-    menu = html.Div([
-
-        dcc.Link('Khái quát   ', href='/khai-quat', className="tab first"),
-
-        dcc.Link('Theo môn   ', href='/theo-mon', className="tab"),
-
-        dcc.Link('Theo tỉnh/thành   ', href='/theo-tinh-thanh', className="tab"),
-
-        dcc.Link('Theo ban/ khối   ', href='/theo-ban-khoi', className="tab"),
-
-        dcc.Link('Theo khu vực/ vùng miền   ', href='/theo-vung-mien', className="tab"),
-
-        dcc.Link('Nơi thử nghiệm   ', href='/thu-nghiem', className="tab")
-
-    ], className="row ")
-    return menu
-
-PAGES_HREF = {'Khái quát': '/khai-quat', 'Theo môn': '/theo-mon', 'Theo tỉnh/thành': '/theo-tinh-thanh', 'Theo ban/khối': '/theo-ban-khoi', 'Theo khu vực/vùng miền': '/theo-vung-mien', 'Nơi thử nghiệm': '/thu-nghiem' }
-def get_menu2(landing_page):
+def get_menu(landing_page):
     menu_list = []
     for _page in PAGES_HREF:
         if landing_page == _page:
             menu_list.append(dcc.Link(_page, href = PAGES_HREF[_page] , className="active item"))
         else:
             menu_list.append(dcc.Link(_page, href = PAGES_HREF[_page] , className="item"))
-    menu = html.Div([
-        menu_list
-    ], className="ui tabular menu")
+    menu = html.Div(menu_list , className="ui tabular menu")
     return menu
-
-layout = html.Div( [
-
-    print_button(),
-
-    html.Div([
-        get_logo(),
-        get_header(),
-        html.Br([]),
-        get_menu2(page_id),
-    ]
-    ),
-
-    html.P(children='''
-        Chào mừng bạn đã đến với trang chủ của trang
-    '''),
-
-    html.Div(children='''
-        Trang này dùng dữ liệu có sẵn từ kết quả thi tốt nghiệp THPT 2018 để vẽ vài biểu đồ
-    '''),
-
-    dcc.Graph(
-        id='histogram-graph-hcmc-physics',
-        figure={
-            'data': [
-                        go.Histogram(x=data_wrapper["TP.HCM"]['LÝ'],  histnorm='probability')
-            ],
-            'layout': {
-                'title': 'Điểm thi Toán THPT của TP.HCM 2018'
-            }
-        }
-    ),
-
-])
-
-
-@app.callback(
-    Output('overview-display-value', 'children'),
-    [Input('overview-dropdown', 'value')])
-def display_value(value):
-    return 'You have selected "{}"'.format(value)

@@ -8,11 +8,15 @@ import plotly.graph_objs as go
 import pandas as pd
 
 from app import app
-from index import get_menu, get_header, data_wrapper
+from .core_app import get_menu, data_wrapper, print_button
+
+#Define constant of this page
+page_id = 'Khái quát'
 
 #Layour of Overview aka Main page
 layout = html.Div([
-    get_menu (),
-    print_button()
+    get_menu (page_id),
+    print_button(),
+    html.H3('Khai quát điểm thi tốt nghiệp 2018')
 
 ], className='page')

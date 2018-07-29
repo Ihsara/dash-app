@@ -8,8 +8,13 @@ import plotly.graph_objs as go
 import pandas as pd
 
 from app import app
+from .core_app import get_menu, data_wrapper, print_button
+
+#Define constant of this page
+page_id = 'Theo tỉnh/thành'
 
 layout = html.Div([
+    get_menu(page_id),
     html.H3('Điểm thi tốt nghiệp THPT 2018 theo tỉnh/ thành'),
     dcc.Dropdown(
         id='by-province-dropdown',
