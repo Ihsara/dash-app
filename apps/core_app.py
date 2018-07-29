@@ -11,6 +11,8 @@ import pandas as pd
 __file__ = "./dat/province_code.xlsx"
 PAGES_HREF = {'Khái quát': '/khai-quat', 'Theo môn': '/theo-mon', 'Theo tỉnh/thành': '/theo-tinh-thanh', 'Theo ban/khối': '/theo-ban-khoi', 'Theo khu vực/vùng miền': '/theo-vung-mien', 'Nơi thử nghiệm': '/thu-nghiem' }
 BASE_DIR_DATA = "./dat/{}.csv"
+SUBJECTS_REQUIRED = ['TOÁN', 'VĂN', 'LÝ', 'HÓA', 'SINH', 'SỬ', 'ĐỊA', 'GDCD', 'ANH', 'KHTN', 'KHXH']
+UNI_DEPARTMENT = ['KHỐI A', 'KHỐI B', 'KHỐI C', 'KHỐI A1']
 
 #Other functions
 def get_data(ref_province):
@@ -29,8 +31,10 @@ def get_data(ref_province):
 """
 province_ref = pd.read_excel(__file__)
 data_wrapper = get_data(province_ref)
+df_all_provinces = pd.concat(data_wrapper.values()).reset_index().drop(columns=['index'])
+df_all_provnces_description = df_all_provinces.describe().round(2)#Round to 2 decimal place
 
-# reusable componenets
+#Define reusable components
 def make_dash_table(df):
     ''' Return a dash definitio of an HTML table for a Pandas dataframe '''
     table = []
@@ -71,12 +75,12 @@ def get_header():
     ], className="row gs-header gs-text-header")
     return header
 
-def get_menu(landing_page):
+def get_menu(landing_page, className = "ui tabular menu"):
     menu_list = []
     for _page in PAGES_HREF:
         if landing_page == _page:
             menu_list.append(dcc.Link(_page, href = PAGES_HREF[_page] , className="active item"))
         else:
             menu_list.append(dcc.Link(_page, href = PAGES_HREF[_page] , className="item"))
-    menu = html.Div(menu_list , className="ui tabular menu")
+    menu = html.Div(menu_list , className=className)
     return menu
