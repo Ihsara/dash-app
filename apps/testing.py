@@ -20,7 +20,7 @@ layout = html.Div([
         ]
     ),
     html.Div(id='testing-display-value'),
-])
+], className='page')
 
 
 @app.callback(

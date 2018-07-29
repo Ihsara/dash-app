@@ -18,7 +18,7 @@ layout = html.Div([
     dcc.Link('Go to Main page', href='../'),
     html.Br(),
     dcc.Link('Go to App 1', href='/apps/app1')
-])
+], className='page')
 
 
 @app.callback(

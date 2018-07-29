@@ -21,7 +21,7 @@ layout = html.Div([
     ),
     html.Div(id='by-subject-display-value'),
 
-])
+], className='page')
 
 
 @app.callback(
