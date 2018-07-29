@@ -15,8 +15,21 @@ page_id = 'Khái quát'
 
 #Layour of Overview aka Main page
 layout = html.Div([
+
+    html.Div([
+        html.Div([
+            html.H1('Trang đồ họa đồ thị - biểu đồ về điểm thi tốt nghiệp THPT 2018',
+            className = "ui dividing header"),
+            html.Br([]),
+            html.Div([
+                dcc.Input(type="text", placeholder="Số báo danh..."),
+                html.I(className="search icon"),
+            ], className="ui center aligned transparent left icon input center"),
+        ], className="ui text container"),
+
+    ], className="ui vertical masthead center aligned segment"),
+
     get_menu (page_id),
     print_button(),
-    html.H3('Khai quát điểm thi tốt nghiệp 2018')
 
-], className='page')
+], className='ui container')
