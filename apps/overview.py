@@ -14,7 +14,7 @@ from .core_app import get_menu, data_wrapper, print_button
 from .core_app import df_all_provinces_description, df_all_provinces
 
 #import CONSTANTS goes here
-from .core_app import SUBJECTS_REQUIRED, UNI_DEPARTMENT, UNI_DEPARTMENT_WITH_D
+from .core_app import SUBJECTS_REQUIRED, UNI_DEPARTMENT, UNI_DEPARTMENT_WITH_D, NO_RESULT
 
 #Define constant of this page
 page_id = 'Khái quát'
@@ -109,26 +109,43 @@ layout = html.Div([
     [Input(component_id='sbd-input', component_property='value')]
 )
 def update_output_div(input_value):
-    table = df_all_provinces[df_all_provinces["SBD"] == int(input_value)]
-    sbd_output_layout = html.Div([
-        html.P("Số báo danh: {}".format(input_value), className=""),
-        html.Table([
-            html.Thead([
-                html.Tr([html.Th([subject]) for subject in SUBJECTS_REQUIRED])
-            ]),
-            html.Tbody(
-                make_dash_table(table[SUBJECTS_REQUIRED], use_index=False)
-                ),
-        ], className="ui attached table"),
-        html.Table([
-            html.Thead([
-                html.Tr( [html.Th([subject]) for subject in UNI_DEPARTMENT_WITH_D])
-            ]),
-            html.Tbody(
-                make_dash_table(table[UNI_DEPARTMENT_WITH_D], use_index=False)
-                ),
-        ], className="ui attached table")
-    ], className="ui container")
+    not_found_msg = sbd_output_layout = html.Div([
+        html.Div([
+            html.I(className="attention icon"),
+            html.Div("Không tìm thấy SBD đã nhập. Xin vui lòng hãy kiểm tra lại."),
+            ],className="ui warning icon message"),
+        ], className="ui container")
+    try:
+        table = df_all_provinces[df_all_provinces["SBD"] == int(input_value)]
+        if table.values.shape == NO_RESULT:
+            sbd_output_layout = not_found_msg
+        else:
+            sbd_output_layout = html.Div([
+            html.P("Số báo danh: {}".format(input_value), className=""),
+            html.Table([
+                html.Thead([
+                    html.Tr([html.Th([subject]) for subject in SUBJECTS_REQUIRED])
+                ]),
+                html.Tbody(
+                    make_dash_table(table[SUBJECTS_REQUIRED], use_index=False)
+                    ),
+            ], className="ui attached table"),
+            html.Table([
+                html.Thead([
+                    html.Tr( [html.Th([subject]) for subject in UNI_DEPARTMENT_WITH_D])
+                ]),
+                html.Tbody(
+                    make_dash_table(table[UNI_DEPARTMENT_WITH_D], use_index=False)
+                    ),
+            ], className="ui attached table")
+        ], className="ui container")
+    except TypeError:
+        sbd_output_layout = not_found_msg
+    except ValueError:
+        sbd_output_layout = not_found_msg
 
-    if input_value is not None:
+    if input_value is not  None :
+        return sbd_output_layout
+    else:
+        sbd_output_layout = []
         return sbd_output_layout

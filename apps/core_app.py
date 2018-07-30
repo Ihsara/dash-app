@@ -14,6 +14,7 @@ BASE_DIR_DATA = "./dat/{}.csv"
 SUBJECTS_REQUIRED = ['TOÁN', 'VĂN', 'LÝ', 'HÓA', 'SINH', 'SỬ', 'ĐỊA', 'GDCD', 'ANH', 'KHTN', 'KHXH']
 UNI_DEPARTMENT = ['KHỐI A', 'KHỐI B', 'KHỐI C', 'KHỐI A1']
 UNI_DEPARTMENT_WITH_D = ['KHỐI A', 'KHỐI B', 'KHỐI C', 'KHỐI A1', "KHỐI D"]
+NO_RESULT = (0, 17)
 
 #Other functions
 def get_data(ref_province):
