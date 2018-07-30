@@ -10,6 +10,27 @@ import pandas as pd
 from app import app, server
 from apps import overview, by_subject, by_province, by_department, by_region, testing
 
+#Define constant:
+SITE_MAPPING = {'/'         : overview.graph_layout,
+    '/khai-quat'            : overview.graph_layout,
+    '/khai-quat-graph'      : overview.graph_layout,
+    '/khai-quat-table'      : overview.table_layout,
+    '/theo-mon'             : by_subject.graph_layout,
+    '/theo-mon-graph'       : by_subject.graph_layout,
+    '/theo-mon-table'       : by_subject.table_layout,
+    '/theo-tinh-thanh'      : by_province.graph_layout,
+    '/theo-tinh-thanh-graph': by_province.graph_layout,
+    '/theo-tinh-thanh-table': by_province.table_layout,
+    '/theo-ban-khoi'        : by_department.graph_layout,
+    '/theo-ban-khoi-graph'  : by_department.graph_layout,
+    '/theo-ban-khoi-table'  : by_department.table_layout,
+    '/theo-vung-mien'       : by_region.graph_layout,
+    '/theo-vung-mien-graph' : by_region.graph_layout,
+    '/theo-vung-mien-table' : by_region.table_layout,
+    '/thu-nghiem'           : testing.graph_layout,
+    '/thu-nghiem-graph'     : testing.graph_layout,
+    '/thu-nghiem-table'     : testing.table_layout,
+    '/full-view-graph'      : [overview.graph_layout, by_subject.graph_layout , by_department.graph_layout , by_province.graph_layout , by_region.graph_layout] }
 
 
 #page layout
@@ -28,27 +49,38 @@ app.layout = html.Div([
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
+    try:
+        return SITE_MAPPING[pathname]
+    except KeyError:
+        return noPage
+"""
+def display_page(pathname):
     print(pathname)
-    if pathname == '/' or pathname == '/khai-quat':
-        return overview.layout
-#    elif pathname == '/theo-mon':
+    if pathname == '/' or pathname == '/khai-quat' or pathname == '/khai-quat-graph':
+        return overview.graph_layout
+    elif pathname == '/khai-quat-table':
+        return overview.table_layout
+
     elif pathname == '/theo-mon' or pathname == '/theo-mon-graph':
         return by_subject.graph_layout
     elif pathname == '/theo-mon-table':
             return by_subject.table_layout
+
     elif pathname == '/theo-tinh-thanh':
         return by_province.layout
     elif pathname == '/theo-ban-khoi':
         return by_department.layout
-    elif pathname == '/theo-vung-mien':
-        return by_region.layout
+    elif pathname == '/theo-vung-mien' or pathname == '/theo-vung-mien-graph':
+        return by_region.graph_layout
+    elif pathname == '/theo-vung-mien-table':
+        return by_region.table_layout
     elif pathname == '/thu-nghiem':
         return testing.layout
     elif pathname == '/full-view':
         return overview.layout, by_subject.layout, by_province.layout, by_department.layout, by_region.layout, testing.layout
     else:
         return noPage
-
+"""
 
 #Add CSS custom files here
 external_css = [#"https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css",

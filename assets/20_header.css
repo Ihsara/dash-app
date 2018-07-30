@@ -4,3 +4,17 @@
     font-size: 4em;
     font-weight: normal;
 }
+
+.masthead.segment {
+    min-height: 700px;
+    padding: 1em 0em;
+}
+
+.mastcontent {
+    margin-top: 3em;
+    margin-bottom: 4em;
+}
+
+.ui.vertical.stripe {
+    padding: 8em 0em;
+}

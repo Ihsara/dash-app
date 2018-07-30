@@ -10,7 +10,7 @@ import pandas as pd
 #CONSTANTS declaration
 __file__ = "./dat/province_code.xlsx"
 PAGES_HREF = {'Khái quát': '/khai-quat', 'Theo môn': '/theo-mon', 'Theo tỉnh/thành': '/theo-tinh-thanh', 'Theo ban/khối': '/theo-ban-khoi', 'Theo khu vực/vùng miền': '/theo-vung-mien', 'Nơi thử nghiệm': '/thu-nghiem' }
-SUBTAB = ('graph','table') # Arrange like this to make graph as a primary tab
+SUBTAB = {'graph':'Biểu đồ','table':"Bảng"} # Arrange like this to make graph as a primary tab
 BASE_DIR_DATA = "./dat/{}.csv"
 SUBJECTS_REQUIRED = ['TOÁN', 'VĂN', 'LÝ', 'HÓA', 'SINH', 'SỬ', 'ĐỊA', 'GDCD', 'ANH', 'KHTN', 'KHXH']
 UNI_DEPARTMENT = ['KHỐI A', 'KHỐI B', 'KHỐI C', 'KHỐI A1']
@@ -78,7 +78,7 @@ def get_header():
     ], className="row gs-header gs-text-header")
     return header
 
-def get_menu(landing_page, className = "ui tabular menu"):
+def get_menu(landing_page, className = "ui red six item tabular menu"):
     menu_list = []
     for _page in PAGES_HREF:
         if landing_page == _page:
@@ -89,13 +89,13 @@ def get_menu(landing_page, className = "ui tabular menu"):
     return menu
 
 #Sub meny consists of table and graph tab. landing_page is either "Graph" or "Table"
-def get_sub_menu(landing_page, lading_sub_page, className = "ui tabular menu"):
+def get_sub_menu(landing_page, lading_sub_page, className = "ui purple two item tabular menu"):
     menu_list = []
     for tab in SUBTAB:
         tabLink = "{}-{}".format(PAGES_HREF[landing_page],tab)
         if tab == lading_sub_page:
-            menu_list.append(dcc.Link(tab, href = tabLink , className="active item"))
+            menu_list.append(dcc.Link(SUBTAB[tab], href = tabLink , className="active item"))
         else:
-            menu_list.append(dcc.Link(tab, href = tabLink , className="item"))
+            menu_list.append(dcc.Link(SUBTAB[tab], href = tabLink , className="item"))
     menu = html.Div(menu_list , className=className)
     return menu

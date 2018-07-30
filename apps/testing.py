@@ -8,7 +8,7 @@ import plotly.graph_objs as go
 import pandas as pd
 
 from app import app
-from .core_app import get_menu, data_wrapper, print_button
+from .core_app import get_menu, data_wrapper, print_button, get_sub_menu
 
 #Define constant of this page
 page_id = 'Nơi thử nghiệm'
@@ -25,6 +25,54 @@ layout = html.Div([
         ]
     ),
     html.Div(id='testing-display-value'),
+], className='ui autumn leaf container')
+
+graph_layout = html.Div([
+    html.Div([
+        get_menu (page_id),
+        html.H3('Điểm thi tốt nghiệp THPT 2018 theo vùng tỉnh/thành'),
+        html.Br([]),
+        dcc.Dropdown(
+            id='testing-dropdown',
+            options=[
+                {'label': 'App 1 - {}'.format(i), 'value': i} for i in [
+                    'NYC', 'MTL', 'LA'
+                ]
+            ]
+        ),
+        html.Div(id='testing-display-value'),
+        html.Br([]),
+
+        get_sub_menu(page_id,'graph'),
+        html.Div([
+            html.Div("This is graph tab!", className="ui text container")
+        ],className= "ui byTestingGraph vertical stripe segment", id="theo-mon-graph"),
+    ], className="ui byTesting container")
+
+], className='ui autumn leaf container')
+
+table_layout = html.Div([
+    html.Div([
+        get_menu (page_id),
+        html.H3('Điểm thi tốt nghiệp THPT 2018 theo vùng tỉnh/ thành'),
+        html.Br([]),
+        dcc.Dropdown(
+            id='testing-dropdown',
+            options=[
+                {'label': 'App 1 - {}'.format(i), 'value': i} for i in [
+                    'NYC', 'MTL', 'LA'
+                ]
+            ]
+        ),
+        html.Div(id='testing-display-value'),
+        html.Br([]),
+
+        get_sub_menu(page_id,'table'),
+        html.Div([
+            html.Div("This is table tab!", className="ui text container")
+        ],className= "ui byTestingGraph vertical stripe segment", id="theo-mon-graph"),
+    ], className="ui byTesting container")
+
 ], className='ui autumn leaf container')
 
 

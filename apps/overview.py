@@ -8,7 +8,7 @@ import plotly.graph_objs as go
 import pandas as pd
 
 from app import app
-from .core_app import get_menu, data_wrapper, print_button
+from .core_app import get_menu, data_wrapper, print_button, get_sub_menu
 
 #import DataFrame goes here
 from .core_app import df_all_provinces_description, df_all_provinces
@@ -40,8 +40,9 @@ def make_dash_table(df, use_index=True):
 tmp = [html.Th([subject]) for subject in SUBJECTS_REQUIRED]
 tmp.insert(0, html.Th([]))
 #Layour of Overview aka Main page
-layout = html.Div([
+graph_layout = html.Div([
 
+    #Header
     html.Div([
         html.Div([
             html.H1('Trang đồ họa đồ thị - biểu đồ về điểm thi tốt nghiệp THPT 2018',
@@ -60,49 +61,93 @@ layout = html.Div([
 
     ], className="ui vertical masthead center aligned segment"),
 
+    #sbd-output table
     html.Div([
         #Leaving this empty as it will be filled later with callback dependent function
-    ],className="ui sbdTable vertical stripe segment", id="sbd-output"),
+    ],className="ui sbdTable mastcontent vertical stripe segment", id="sbd-output"),
 
-
-    #Subjects table:
+    get_sub_menu(page_id,'graph'),
     html.Div([
-        html.Div([
-            html.I(className="help circle icon"),
-            html.Div("Tỉnh An Giang không có trong hệ thống dữ liệu của trang web."),
-        ],className="ui top attached warning icon message"),
-        html.Table([
-            html.Thead([
-                html.Tr([html.Th([])] + [html.Th([subject]) for subject in SUBJECTS_REQUIRED])
-            ]),
-            html.Tbody(
-                make_dash_table(df_all_provinces_description[SUBJECTS_REQUIRED])
-                ),
-            ], className="ui attached table")
-    ], className="ui subjectTable vertical stripe segment"),
+        html.H3("Tóm tắt tình hình kết quả thi tốt nghiệp THPT - tuyển sinh đại học 2018 qua biểu đồ", className="ui dividing header"),
+    ], className="ui mastcontent container"),
 
-    html.Br([]),
 
-    #Department to enter uni
-    html.Div([
-        html.Div([
-            html.I(className="help circle icon"),
-            html.Div("Dữ liệu khối D hiện giờ chưa thể xử lý."),
-        ],className="ui top attached warning icon message"),
-        html.Table([
-            html.Thead([
-                html.Tr([html.Th([])] + [html.Th([subject]) for subject in UNI_DEPARTMENT])
-            ]),
-            html.Tbody(
-                make_dash_table(df_all_provinces_description[UNI_DEPARTMENT ])
-                ),
-            ], className="ui attached table")
-    ], className="ui departmentTable vertical stripe segment"),
-
-    get_menu (page_id, className="ui bottom attached tabular menu"),
+    get_menu (page_id, className="ui mastcontent red six item bottom attached tabular menu"),
     print_button(),
 
 ], className='ui autumn leaf container')
+
+table_layout = html.Div([
+
+    #Header
+    html.Div([
+        html.Div([
+            html.H1('Trang đồ họa đồ thị - biểu đồ về điểm thi tốt nghiệp THPT 2018',
+            className = "ui dividing header"),
+            html.Br([]),
+            html.Div([
+                html.I(className="attention icon"),
+                html.Div("Tất cả dữ liệu trên đây đều được thu thập từ trên mạng và hoàn toàn không đáng tin cậy.\n Ứng dụng này chỉ nên để coi cho vui là chính."),
+            ],className="ui warning icon message"),
+            html.Br([]),
+            html.Div([
+                dcc.Input(id="sbd-input" , type="text", placeholder="Số báo danh..."),
+                html.I(className="search icon"),
+            ], className="ui center aligned transparent left icon input center"),
+        ], className="ui text container"),
+
+    ], className="ui vertical masthead center aligned segment"),
+
+    #sbd-output table
+    html.Div([
+        #Leaving this empty as it will be filled later with callback dependent function
+    ],className="ui sbdTable mastcontent vertical stripe segment", id="sbd-output"),
+
+    get_sub_menu(page_id,'table'),
+
+    html.Div([
+        html.H3("Tóm tắt tình hình kết quả thi tốt nghiệp THPT - tuyển sinh đại học 2018 qua dạng bảng", className="ui dividing header"),
+        #Subjects table:
+        html.Div([
+            html.Div([
+                html.I(className="help circle icon"),
+                html.Div("Tỉnh An Giang không có trong hệ thống dữ liệu của trang web."),
+            ],className="ui top attached warning icon message"),
+            html.Table([
+                html.Thead([
+                    html.Tr([html.Th([])] + [html.Th([subject]) for subject in SUBJECTS_REQUIRED])
+                ]),
+                html.Tbody(
+                    make_dash_table(df_all_provinces_description[SUBJECTS_REQUIRED])
+                    ),
+                ], className="ui attached table")
+        ], className="ui vertical mastcontent center aligned segment"),
+
+        html.Br([]),
+
+        #Department to enter uni
+        html.Div([
+            html.Div([
+                html.I(className="help circle icon"),
+                html.Div("Dữ liệu khối D hiện giờ chưa thể xử lý."),
+            ],className="ui top attached warning icon message"),
+            html.Table([
+                html.Thead([
+                    html.Tr([html.Th([])] + [html.Th([subject]) for subject in UNI_DEPARTMENT])
+                ]),
+                html.Tbody(
+                    make_dash_table(df_all_provinces_description[UNI_DEPARTMENT ])
+                    ),
+                ], className="ui attached table")
+        ], className="ui departmentTable mastcontent vertical stripe segment"),
+    ], className="ui mastcontent container"),
+
+
+
+    get_menu (page_id, className="ui red six item mastcontent bottom attached tabular menu"),
+    print_button(),
+
+], className='ui autumn leaf mastcontent container')
 
 @app.callback(
     Output(component_id='sbd-output', component_property='children'),
@@ -114,7 +159,7 @@ def update_output_div(input_value):
             html.I(className="attention icon"),
             html.Div("Không tìm thấy SBD đã nhập. Xin vui lòng hãy kiểm tra lại."),
             ],className="ui warning icon message"),
-        ], className="ui container")
+        ], className="ui mastcontent container")
     try:
         table = df_all_provinces[df_all_provinces["SBD"] == int(input_value)]
         if table.values.shape == NO_RESULT:
@@ -138,7 +183,7 @@ def update_output_div(input_value):
                     make_dash_table(table[UNI_DEPARTMENT_WITH_D], use_index=False)
                     ),
             ], className="ui attached table")
-        ], className="ui container")
+        ], className="ui mastcontent container")
     except TypeError:
         sbd_output_layout = not_found_msg
     except ValueError:
