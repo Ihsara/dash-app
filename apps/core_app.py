@@ -13,6 +13,7 @@ PAGES_HREF = {'Khái quát': '/khai-quat', 'Theo môn': '/theo-mon', 'Theo tỉn
 BASE_DIR_DATA = "./dat/{}.csv"
 SUBJECTS_REQUIRED = ['TOÁN', 'VĂN', 'LÝ', 'HÓA', 'SINH', 'SỬ', 'ĐỊA', 'GDCD', 'ANH', 'KHTN', 'KHXH']
 UNI_DEPARTMENT = ['KHỐI A', 'KHỐI B', 'KHỐI C', 'KHỐI A1']
+UNI_DEPARTMENT_WITH_D = ['KHỐI A', 'KHỐI B', 'KHỐI C', 'KHỐI A1', "KHỐI D"]
 
 #Other functions
 def get_data(ref_province):
@@ -32,7 +33,7 @@ def get_data(ref_province):
 province_ref = pd.read_excel(__file__)
 data_wrapper = get_data(province_ref)
 df_all_provinces = pd.concat(data_wrapper.values()).reset_index().drop(columns=['index'])
-df_all_provnces_description = df_all_provinces.describe().round(2)#Round to 2 decimal place
+df_all_provinces_description = df_all_provinces.describe().round(2)#Round to 2 decimal place
 
 #Define reusable components
 def make_dash_table(df):

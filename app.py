@@ -45,7 +45,35 @@ app.index_string = '''
             {%config%}
             {%scripts%}
         </footer>
-        <div class='footer-cred'>Trang web được làm bởi Trần Long Châu</div>
+            <div class="ui inverted vertical footer segment">
+                <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                    <h4 class="ui inverted header">Về trang</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">Lý do</a>
+                        <a href="#" class="item">Dữ liệu</a>
+                        <a href="#" class="item">Sitemap</a>
+                        <a href="#" class="item">Liên lạc</a>
+                    </div>
+                    </div>
+                    <div class="three wide column">
+                    <h4 class="ui inverted header">Dịch vụ</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">Quyền sử dụng</a>
+                        <a href="#" class="item">Trách nhiệm</a>
+                        <a href="#" class="item">Làm sao để làm ra trang này</a>
+                        <a href="#" class="item">Thi thử đề 2018</a>
+                    </div>
+                    </div>
+                    <div class="seven wide column">
+                    <h4 class="ui inverted header">Về tác giả</h4>
+                    <p>Trang web được thiết lập bởi Trần Long Châu.</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
 '''

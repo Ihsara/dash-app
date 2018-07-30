@@ -14,8 +14,8 @@ from .core_app import get_menu, data_wrapper, print_button
 page_id = 'Theo môn'
 
 layout = html.Div([
-    html.H3('Điểm thi tốt nghiệp THPT 2018 theo môn thi'),
     get_menu (page_id),
+    html.H3('Điểm thi tốt nghiệp THPT 2018 theo môn thi'),
     html.Br([]),
     dcc.Dropdown(
         id='by-subject-dropdown',
@@ -27,7 +27,7 @@ layout = html.Div([
     ),
     html.Div(id='by-subject-display-value'),
 
-], className='page')
+], className='ui autumn leaf container')
 
 
 @app.callback(

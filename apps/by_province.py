@@ -26,7 +26,7 @@ layout = html.Div([
     ),
     html.Div(id='by-province-display-value'),
 
-], className='page')
+], className='ui autumn leaf container')
 
 
 @app.callback(
