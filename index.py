@@ -43,7 +43,7 @@ noPage = html.Div([  # 404
 #Base app layout:
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
-    html.Div(id='page-content')
+    html.Div(className="ui container", id='page-content')
 ])
 
 @app.callback(Output('page-content', 'children'),
@@ -53,50 +53,14 @@ def display_page(pathname):
         return SITE_MAPPING[pathname]
     except KeyError:
         return noPage
-"""
-def display_page(pathname):
-    print(pathname)
-    if pathname == '/' or pathname == '/khai-quat' or pathname == '/khai-quat-graph':
-        return overview.graph_layout
-    elif pathname == '/khai-quat-table':
-        return overview.table_layout
-
-    elif pathname == '/theo-mon' or pathname == '/theo-mon-graph':
-        return by_subject.graph_layout
-    elif pathname == '/theo-mon-table':
-            return by_subject.table_layout
-
-    elif pathname == '/theo-tinh-thanh':
-        return by_province.layout
-    elif pathname == '/theo-ban-khoi':
-        return by_department.layout
-    elif pathname == '/theo-vung-mien' or pathname == '/theo-vung-mien-graph':
-        return by_region.graph_layout
-    elif pathname == '/theo-vung-mien-table':
-        return by_region.table_layout
-    elif pathname == '/thu-nghiem':
-        return testing.layout
-    elif pathname == '/full-view':
-        return overview.layout, by_subject.layout, by_province.layout, by_department.layout, by_region.layout, testing.layout
-    else:
-        return noPage
-"""
 
 #Add CSS custom files here
-external_css = [#"https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css",
-#                 "https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css",
-                "//fonts.googleapis.com/css?family=Raleway:400,300,600",
-#                 "https://codepen.io/bcd/pen/KQrXdb.css",
-#                 'https://codepen.io/chriddyp/pen/bWLwgP.css',
-#                 "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
-#                 "https://codepen.io/chriddyp/pen/bWLwgP.css",
+external_css = [ "//fonts.googleapis.com/css?family=Raleway:400,300,600",
                 "https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css",
                 "https://codepen.io/ihsara/pen/gjXdRd.css"]
 
 for css in external_css:
     app.css.append_css({"external_url": css})
-
-
 
 #Add js custom fiels here
 external_js = [ "https://code.jquery.com/jquery-3.2.1.min.js",

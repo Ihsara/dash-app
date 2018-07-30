@@ -15,7 +15,7 @@ app = dash.Dash(
     meta_tags=[
     {
         'name': 'description',
-        'content': 'Điểm thi THPT qua góc nhìn của đồ thị - biểu đồ. Bằng cách sử dụng biểu đồ, trang web này hướng đến mục tiêu cung cấp một cách nhìn khách quan về điểm thi tốt nghiệp THPT 2018'
+        'content': 'Điểm thi tốt nghiệp THPT qua góc nhìn của đồ thị - biểu đồ. Bằng cách sử dụng biểu đồ, trang web này hướng đến mục tiêu cung cấp một cách nhìn khách quan về điểm thi tốt nghiệp THPT 2018'
     },
     {
         'name': 'author',
@@ -24,7 +24,8 @@ app = dash.Dash(
     {
         'charset': 'utf-8'
     }
-]
+], title="Điểm thi tốt nghiệp THPT qua góc nhìn của đồ thị"
+
 )
 server = app.server
 app.config.suppress_callback_exceptions = True

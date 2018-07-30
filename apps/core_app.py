@@ -13,6 +13,7 @@ PAGES_HREF = {'Khái quát': '/khai-quat', 'Theo môn': '/theo-mon', 'Theo tỉn
 SUBTAB = {'graph':'Biểu đồ','table':"Bảng"} # Arrange like this to make graph as a primary tab
 BASE_DIR_DATA = "./dat/{}.csv"
 SUBJECTS_REQUIRED = ['TOÁN', 'VĂN', 'LÝ', 'HÓA', 'SINH', 'SỬ', 'ĐỊA', 'GDCD', 'ANH', 'KHTN', 'KHXH']
+SUBJECTS = ['TOÁN', 'VĂN', 'LÝ', 'HÓA', 'SINH', 'SỬ', 'ĐỊA', 'GDCD', 'ANH']
 UNI_DEPARTMENT = ['KHỐI A', 'KHỐI B', 'KHỐI C', 'KHỐI A1']
 UNI_DEPARTMENT_WITH_D = ['KHỐI A', 'KHỐI B', 'KHỐI C', 'KHỐI A1', "KHỐI D"]
 NO_RESULT = (0, 17)
