@@ -121,7 +121,7 @@ def update_output_div(input_value):
             sbd_output_layout = not_found_msg
         else:
             sbd_output_layout = html.Div([
-            html.P("Số báo danh: {}".format(input_value), className=""),
+            html.P("Số báo danh: {}".format(input_value), className="ui text cotainer"),
             html.Table([
                 html.Thead([
                     html.Tr([html.Th([subject]) for subject in SUBJECTS_REQUIRED])

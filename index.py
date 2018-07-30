@@ -28,10 +28,14 @@ app.layout = html.Div([
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
+    print(pathname)
     if pathname == '/' or pathname == '/khai-quat':
         return overview.layout
-    elif pathname == '/theo-mon':
-        return by_subject.layout
+#    elif pathname == '/theo-mon':
+    elif pathname == '/theo-mon' or pathname == '/theo-mon-graph':
+        return by_subject.graph_layout
+    elif pathname == '/theo-mon-table':
+            return by_subject.table_layout
     elif pathname == '/theo-tinh-thanh':
         return by_province.layout
     elif pathname == '/theo-ban-khoi':
