@@ -8,10 +8,13 @@ import plotly.graph_objs as go
 import pandas as pd
 
 from app import app
-from .core_app import get_menu, data_wrapper, print_button, get_sub_menu
+from .core_app import get_menu, print_button, get_sub_menu
 
 #Define constant of this page
 page_id = 'Nơi thử nghiệm'
+def init():
+    global graph_layout, table_layout
+    graph_layout = table_layout =[]
 
 layout = html.Div([
     get_menu(page_id),

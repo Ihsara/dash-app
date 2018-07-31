@@ -5,10 +5,28 @@ from dash.dependencies import Input, Output
 import plotly.plotly as py
 import plotly.graph_objs as go
 
+from flask_cors import CORS
+
 import pandas as pd
 
 from app import app, server
 from apps import overview, by_subject, by_province, by_department, by_region, testing
+
+from apps.core_app import get_data
+
+""" @app.server.before_first_request
+def initialize():
+    global province_ref, data_wrapper, df_all_provinces, df_all_provinces_description,
+    province_ref = pd.read_excel(__file__)
+    data_wrapper = get_data(province_ref)
+    df_all_provinces = pd.concat(data_wrapper.values()).reset_index().drop(columns=['index'])
+    df_all_provinces_description = df_all_provinces.describe().round(2)#Round to 2 decimal place
+    overview.init()
+    by_subject.init()
+    by_province.init()
+    by_department.init()
+    by_region.init()
+    testing.init() """
 
 #Define constant:
 SITE_MAPPING = {'/'         : overview.graph_layout,
@@ -69,6 +87,8 @@ external_js = [ "https://code.jquery.com/jquery-3.2.1.min.js",
 
 for js in external_js:
     app.scripts.append_script({"external_url": js})
+
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)

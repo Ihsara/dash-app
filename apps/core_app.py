@@ -38,9 +38,10 @@ data_wrapper = get_data(province_ref)
 df_all_provinces = pd.concat(data_wrapper.values()).reset_index().drop(columns=['index'])
 df_all_provinces_description = df_all_provinces.describe().round(2)#Round to 2 decimal place
 
+
 #Define reusable components
 def make_dash_table(df):
-    ''' Return a dash definitio of an HTML table for a Pandas dataframe '''
+    ''' Return a dash definition of an HTML table for a Pandas dataframe '''
     table = []
     for index, row in df.iterrows():
         html_row = []

@@ -11,18 +11,20 @@ import pandas as pd
 import numpy as np
 
 from app import app
-from .core_app import get_menu, data_wrapper, print_button, get_sub_menu
+from .core_app import get_menu, print_button, get_sub_menu
 
 #import DataFrame goes here
-from .core_app import df_all_provinces_description, df_all_provinces
+#from index import df_all_provinces_description, df_all_provinces, data_wrapper
+from .core_app import df_all_provinces_description, df_all_provinces, data_wrapper
 
 #import CONSTANTS goes here
 from .core_app import SUBJECTS_REQUIRED, UNI_DEPARTMENT, UNI_DEPARTMENT_WITH_D, NO_RESULT, SUBJECTS
 
 #Define constant of this page
 page_id = 'Khái quát'
-
-
+def init():
+    global graph_layout, table_layout
+    graph_layout = table_layout =[]
 
 x_data = SUBJECTS
 

@@ -8,10 +8,13 @@ import plotly.graph_objs as go
 import pandas as pd
 
 from app import app
-from .core_app import data_wrapper, get_menu, get_sub_menu
+from .core_app import get_menu, get_sub_menu
 
 #Define constant of this page
 page_id = 'Theo ban/khối'
+def init():
+    global graph_layout, table_layout
+    graph_layout = table_layout =[]
 
 
 layout = html.Div([
