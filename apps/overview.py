@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 
 import dash_core_components as dcc
@@ -11,7 +12,7 @@ import pandas as pd
 import numpy as np
 
 from app import app
-from .core_app import get_menu, print_button, get_sub_menu
+from .core_app import get_menu, print_button, get_sub_menu, get_data
 
 #import DataFrame goes here
 #from index import df_all_provinces_description, df_all_provinces, data_wrapper
@@ -22,58 +23,58 @@ from .core_app import SUBJECTS_REQUIRED, UNI_DEPARTMENT, UNI_DEPARTMENT_WITH_D, 
 
 #Define constant of this page
 page_id = 'Khái quát'
-def init():
-    global graph_layout, table_layout
-    graph_layout = table_layout =[]
 
-x_data = SUBJECTS
+""" def make_box_whisker_all_subjects():
 
-y_data = []
-for subject in SUBJECTS:
-    y_data.append(df_all_provinces[subject])
+    x_data = SUBJECTS
 
-colors = ['rgba(93, 164, 214, 0.5)', 'rgba(255, 144, 14, 0.5)', 'rgba(44, 160, 101, 0.5)', 'rgba(255, 65, 54, 0.5)', 'rgba(207, 114, 255, 0.5)', 'rgba(127, 96, 0, 0.5)', 'rgba(255, 224, 156, 0.5)', 'khaki', 'lightsalmon']
+    y_data = []
+    for subject in SUBJECTS:
+        y_data.append(df_all_provinces[subject])
 
-traces = []
+    colors = ['rgba(93, 164, 214, 0.5)', 'rgba(255, 144, 14, 0.5)', 'rgba(44, 160, 101, 0.5)', 'rgba(255, 65, 54, 0.5)', 'rgba(207, 114, 255, 0.5)', 'rgba(127, 96, 0, 0.5)', 'rgba(255, 224, 156, 0.5)', 'khaki', 'lightsalmon']
 
-for xd, yd, cls in zip(x_data, y_data, colors):
-        traces.append(go.Box(
-            y=yd,
-            name=xd,
-            boxpoints=False,
-            jitter=0.5,
-            whiskerwidth=0.2,
-            fillcolor=cls,
-            marker=dict(
-                size=2,
-            ),
-            line=dict(width=1),
-        ))
+    traces = []
 
-layout = go.Layout(
-    title='Phân bổ điểm của các môn thi tốt nghiệp THPT 2018',
-    yaxis=dict(
-        autorange=True,
-        showgrid=True,
-        zeroline=True,
-        dtick=5,
-        gridcolor='rgb(255, 255, 255)',
-        gridwidth=1,
-        zerolinecolor='rgb(255, 255, 255)',
-        zerolinewidth=2,
-    ),
-    margin=dict(
-        l=40,
-        r=30,
-        b=80,
-        t=100,
-    ),
-    paper_bgcolor='rgb(243, 243, 243)',
-    plot_bgcolor='rgb(243, 243, 243)',
-    showlegend=False
-)
+    for xd, yd, cls in zip(x_data, y_data, colors):
+            traces.append(go.Box(
+                y=yd,
+                name=xd,
+                boxpoints=False,
+                jitter=0.5,
+                whiskerwidth=0.2,
+                fillcolor=cls,
+                marker=dict(
+                    size=2,
+                ),
+                line=dict(width=1),
+            ))
 
-fig = go.Figure(data=traces, layout=layout)
+    layout = go.Layout(
+        title='Phân bổ điểm của các môn thi tốt nghiệp THPT 2018',
+        yaxis=dict(
+            autorange=True,
+            showgrid=True,
+            zeroline=True,
+            dtick=5,
+            gridcolor='rgb(255, 255, 255)',
+            gridwidth=1,
+            zerolinecolor='rgb(255, 255, 255)',
+            zerolinewidth=2,
+        ),
+        margin=dict(
+            l=40,
+            r=30,
+            b=80,
+            t=100,
+        ),
+        paper_bgcolor='rgb(243, 243, 243)',
+        plot_bgcolor='rgb(243, 243, 243)',
+        showlegend=False
+    )
+
+    fig = go.Figure(data=traces, layout=layout)
+    return fig """
 
 #Functions for this page:
 def make_dash_table(df, use_index=True):
@@ -125,7 +126,7 @@ graph_layout = html.Div([
     get_sub_menu(page_id,'graph'),
     html.Div([
         html.H3("Tóm tắt tình hình kết quả thi tốt nghiệp THPT - tuyển sinh đại học 2018 qua biểu đồ", className="ui dividing header"),
-        dcc.Graph(id='example-graph', figure=fig),
+        #dcc.Graph(id='example-graph', figure=make_box_whisker_all_subjects()),
     ], className="ui mastcontent container"),
 
 

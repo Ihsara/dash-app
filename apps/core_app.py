@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
@@ -5,13 +6,17 @@ from dash.dependencies import Input, Output
 import plotly.plotly as py
 import plotly.graph_objs as go
 
+from app import app
+
 import pandas as pd
 
 #CONSTANTS declaration
 __file__ = "./dat/province_code.xlsx"
+BASE_DIR_DATA = "./dat/{}.csv"
+
 PAGES_HREF = {'Khái quát': '/khai-quat', 'Theo môn': '/theo-mon', 'Theo tỉnh/thành': '/theo-tinh-thanh', 'Theo ban/khối': '/theo-ban-khoi', 'Theo khu vực/vùng miền': '/theo-vung-mien', 'Nơi thử nghiệm': '/thu-nghiem' }
 SUBTAB = {'graph':'Biểu đồ','table':"Bảng"} # Arrange like this to make graph as a primary tab
-BASE_DIR_DATA = "./dat/{}.csv"
+
 SUBJECTS_REQUIRED = ['TOÁN', 'VĂN', 'LÝ', 'HÓA', 'SINH', 'SỬ', 'ĐỊA', 'GDCD', 'ANH', 'KHTN', 'KHXH']
 SUBJECTS = ['TOÁN', 'VĂN', 'LÝ', 'HÓA', 'SINH', 'SỬ', 'ĐỊA', 'GDCD', 'ANH']
 UNI_DEPARTMENT = ['KHỐI A', 'KHỐI B', 'KHỐI C', 'KHỐI A1']
@@ -33,8 +38,11 @@ def get_data(ref_province):
     province_ref : contains (id, geophraphical_name) E.g: (1, "TP.HCM")
     data_wraper  : dictionary of { id: DataFrame} which DataFrame contains examination result
 """
+
+
 province_ref = pd.read_excel(__file__)
 data_wrapper = get_data(province_ref)
+
 df_all_provinces = pd.concat(data_wrapper.values()).reset_index().drop(columns=['index'])
 df_all_provinces_description = df_all_provinces.describe().round(2)#Round to 2 decimal place
 

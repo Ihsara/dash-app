@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
@@ -13,20 +14,6 @@ from app import app, server
 from apps import overview, by_subject, by_province, by_department, by_region, testing
 
 from apps.core_app import get_data
-
-""" @app.server.before_first_request
-def initialize():
-    global province_ref, data_wrapper, df_all_provinces, df_all_provinces_description,
-    province_ref = pd.read_excel(__file__)
-    data_wrapper = get_data(province_ref)
-    df_all_provinces = pd.concat(data_wrapper.values()).reset_index().drop(columns=['index'])
-    df_all_provinces_description = df_all_provinces.describe().round(2)#Round to 2 decimal place
-    overview.init()
-    by_subject.init()
-    by_province.init()
-    by_department.init()
-    by_region.init()
-    testing.init() """
 
 #Define constant:
 SITE_MAPPING = {'/'         : overview.graph_layout,

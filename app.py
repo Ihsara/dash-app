@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import os
+import sys
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -11,7 +14,8 @@ import pandas as pd
 '''
     Declaration of a Dash-app. Always right after import.
 '''
-app = dash.Dash(
+print (sys.version)
+app = dash.Dash(__name__,
     meta_tags=[
     {
         'name': 'description',
@@ -27,8 +31,10 @@ app = dash.Dash(
 ], title="Điểm thi tốt nghiệp THPT qua góc nhìn của đồ thị"
 
 )
+
+app.config['suppress_callback_exceptions']=True
 server = app.server
-app.config.suppress_callback_exceptions = True
+
 
 app.index_string = '''
 <!DOCTYPE html>
